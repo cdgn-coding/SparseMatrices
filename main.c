@@ -15,7 +15,11 @@
 		.
 
 	Nota: la función gaussSeidel de este programa estara en Aula Virtual
-	Nota2: probablemente stdio.h no se necesite en el main
+	Nota 2: probablemente stdio.h no se necesite en el main
+
+	Nota 3: cuando se utilice exit o return en main se utilizaran las macros de stdlib.h
+		EXIT_SUCCESS si el programa terminó con exito
+		EXIT_FAILURE si el programa termino con un problema/error
 
 */
 
@@ -26,4 +30,6 @@ int main()
 {
 
 	return EXIT_SUCCESS;
+	
+
 }
