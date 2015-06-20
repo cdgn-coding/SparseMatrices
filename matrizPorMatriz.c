@@ -15,7 +15,7 @@
 
 #include <stdlib.h>
 
-void matrizPorMatriz( matrizTraspuesta matrizA, matrizTraspuesta matrizB, matrizTraspuesta *matrizAB )
+void matrizPorMatriz( matrizSparse matrizA, matrizSparse matrizB, matrizSparse *matrizAB )
 {
 	//Reservar memoria para la matriz de salida
 	//Hacer operaciones

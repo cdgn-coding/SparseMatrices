@@ -10,6 +10,6 @@ typedef struct
 	int *ifil;
 	int *icol;
 	double *xval;
-}matrizSparse;
+} matrizSparse;
 
 #endif
