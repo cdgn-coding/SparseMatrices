@@ -28,7 +28,6 @@
 
 int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 {
-	int valido;
 	FILE *ptr;
 	char c=' ';
 	unsigned n=0,tamVec,tamb;
@@ -144,8 +143,13 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 		matriz->nza = tamVec;
 		
 //----------------------------------------------------------------------------------------------------
-		
 	//Validación de datos
+		//Para resolver el sistema se debe multiplicar la transpuesta de A que denotaremos (At) por el vector b
+		//Si A es de orden nxm, At sera de orden mxn, ergo la dimension de b para poder multiplicar At x b ha de ser
+		//n, asi:   At(mxn) x b(nx1) = (At x A)x X. Asi que revisamos si b tiene una longitud igual al numero de 
+		//filas de A.
 	
-	return valido;
+	if(tamb == matriz->nfil) return(0);  //Las dimensiones SI cooncuerdan
+	if(tamb != matriz->nfil) return(-1); //Las dimensiones NO cooncuerdan
+	//Lo escribo asi por simplicidad de lectura, como solo hay dos casos no se escapa ninguna posibilidad.
 }
