@@ -16,9 +16,26 @@
 	a menos que el sistema sea válido
 */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include "matrizSparse.h"
 
-void matrizTraspuesta( matrizTraspuesta *matriz, matrizTraspuesta *matrizT )
+matrizSparse matrizTranspuesta(matrizSparse matriz)
 {
-
+	matrizSparse matrizT;
+	
+	//Transponer una matriz es simplemente mover los A(i,j) a la posicion A(j,i) asi que
+	//Sencillamente cambiamos ifil con icol, nfil con ncol y ya.
+	
+	matrizT.icol = matriz.ifil;
+	matrizT.ifil = matriz.icol;
+	matrizT.ncol = matriz.nfil;
+	matrizT.nfil = matriz.ncol;
+	
+	//Luego solo completamos los otros valores que no cambian
+	matrizT.nza = matriz.nza;
+	matrizT.xval = matriz.xval;
+	
+	//Finalmente devolvemos Transpuesta y listo.
+	return(matrizT);
 }
