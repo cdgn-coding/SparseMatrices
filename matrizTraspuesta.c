@@ -18,7 +18,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "matrizSparse.h"
+#include "tipos.h"
 
 matrizSparse matrizTranspuesta(matrizSparse matriz)
 {

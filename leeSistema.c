@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "matrizSparse.h"
+#include "tipos.h"
 
 /*
 	Funcion leeSistema : encargada de leer una matriz y un vector

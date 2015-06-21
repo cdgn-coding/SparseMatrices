@@ -13,9 +13,9 @@
 	Nota: solo se pueden usar dos ciclos anidados
 */
 
-
+#include <stdio.h>
 #include <stdlib.h>
-#include "matrizSparse.h"
+#include "tipos.h"
 
 
 void matrizPorMatriz( matrizSparse matrizA, matrizSparse matrizB, matrizSparse *matrizAB )
