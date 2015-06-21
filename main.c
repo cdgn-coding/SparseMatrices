@@ -25,9 +25,36 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "tipos.h"
+#include "prototipos.h"
 
 int main()
 {
+	char nombre[MAXLEN];
+	int correcto, i;
+	double *b, *b_sistema, *resultado;
+	matrizSparse matriz, traspuesta, matriz_sistema;
+
+	printf("Ingrese nombre del archivo: ");
+	scanf("%s", nombre);
+
+	correcto = leeSistema(nombre, &matriz, &b);
+	if ( !(correcto + 1) )
+	{
+		printf("El sistema no es consistente\n");
+		exit(1);
+	}
+	traspuesta = matrizTraspuesta(matriz);
+	matrizPorMatriz( traspuesta, matriz, &matriz_sistema);
+	b_sistema = matrizPorVector(&traspuesta, b);
+	resultado = gaussSeidel(matriz_sistema, b_sistema);
+
+	for (i=0; i<matriz_sistema.nfil; i++)
+	{
+		printf("%lf\n", *(resultado+i) );
+	}
+
+
 
 	return EXIT_SUCCESS;
 	

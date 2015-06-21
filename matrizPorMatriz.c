@@ -18,7 +18,7 @@
 #include "tipos.h"
 
 
-void matrizPorMatriz( matrizSparse matrizA, matrizSparse matrizB, matrizSparse *matrizAB )
+void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, matrizSparse *matrizAB )
 {
 	int i, j, k, encontrado;
 	// Vectores auxiliares
@@ -96,6 +96,9 @@ void matrizPorMatriz( matrizSparse matrizA, matrizSparse matrizB, matrizSparse *
 
 		*(matrizAB->xval+j) += *(xval+i);
 	}
+
+	matrizAB->nfil = matrizA.nfil;
+	matrizAB->ncol = matrizB.ncol;
 
 	free( ifil );
 	free( icol );

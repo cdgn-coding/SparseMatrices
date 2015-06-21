@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "tipos.h"
 
-double *matrizPorVector(matrizSparse *A, double *b)
+double *matrizPorVector(const matrizSparse *A, double *b)
 {
 	unsigned k; // unsigned i;
 	double *resultado;

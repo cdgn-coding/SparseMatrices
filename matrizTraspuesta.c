@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include "tipos.h"
 
-matrizSparse matrizTranspuesta(matrizSparse matriz)
+matrizSparse matrizTranspuesta(const matrizSparse matriz)
 {
 	matrizSparse matrizT;
 	
@@ -37,5 +37,5 @@ matrizSparse matrizTranspuesta(matrizSparse matriz)
 	matrizT.xval = matriz.xval;
 	
 	//Finalmente devolvemos Transpuesta y listo.
-	return(matrizT);
+	return matrizT;
 }

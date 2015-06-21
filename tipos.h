@@ -3,7 +3,7 @@
 
 #define CASTDBL (double *)
 #define TAMDBL sizeof(double)
-
+#define MAXLEN 100
 
 
 void *mimalloc( size_t tam );
