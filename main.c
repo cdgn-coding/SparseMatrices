@@ -34,6 +34,7 @@ int main()
 	int correcto, i;
 	double *b, *b_sistema, *resultado;
 	matrizSparse matriz, traspuesta, matriz_sistema;
+	FILE *arch = mifopen("resultados.txt", "w+");
 
 	printf("Ingrese nombre del archivo: ");
 	scanf("%s", nombre);
@@ -42,19 +43,28 @@ int main()
 	if ( !(correcto + 1) )
 	{
 		printf("El sistema no es consistente\n");
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 	traspuesta = matrizTraspuesta(matriz);
 	matrizPorMatriz( traspuesta, matriz, &matriz_sistema);
 	b_sistema = matrizPorVector(&traspuesta, b);
 	resultado = gaussSeidel(matriz_sistema, b_sistema);
 
+	/*
+		Deducimos lo siguiente del método que presenta wikipedia para este problema
+	*/
+
+	fprintf(arch, "Cantidad de incognitas: %d\n", matriz.nfil);
+	fprintf(arch, "Cantidad de ecuaciones: %d\n", matriz.ncol);
+	fprintf(arch, "Solucion:\n");
+
+	printf("Dimensiones de la matriz: %dx%d\n", matriz.nfil, matriz.ncol);
 	for (i=0; i<matriz_sistema.nfil; i++)
 	{
-		printf("%lf\n", *(resultado+i) );
+		fprintf(arch, "%lf\n", *(resultado+i) );
 	}
 
-
+	fclose(arch);
 
 	return 0;
 	

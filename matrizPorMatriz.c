@@ -27,8 +27,9 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 
 
 	k=0;
-	xval = NULL;
-	ifil = icol = NULL;
+	xval = (double *) malloc( sizeof(double) );
+	ifil = (int *) malloc( sizeof(int) );
+	icol = (int *) malloc( sizeof(int) );
 	for( i = 0; i < matrizA.nza; i++ )
 	{
 
@@ -36,13 +37,7 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 		{
 			if ( *(matrizA.icol+i) == *(matrizB.ifil+j) )
 			{
-				if( xval == NULL )
-				{
-					xval = (double *) malloc( sizeof(double) );
-					ifil = (int *) malloc( sizeof(int) );
-					icol = (int *) malloc( sizeof(int) );
-				}
-				else
+				if( k > 0 )
 				{
 					xval = (double *) realloc( xval, (k+1)*sizeof(double) );
 					ifil = (int *) realloc( ifil, (k+1)*sizeof(int) );
@@ -59,19 +54,20 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 	} //Obtiene todos los terminos que se suman en cada elemento del resultado
 	//Los que coindidan en fila y columna son parte de la misma sumatoria
 
+
 	matrizAB->nza = 0;
+	matrizAB->xval = (double *) malloc( sizeof(double) );
+	matrizAB->ifil = (int *) malloc( sizeof(int) );
+	matrizAB->icol = (int *) malloc( sizeof(int) );
+
 	for( i=0; i<k; i++ )
 	{
-		if( matrizAB->xval == NULL )
+		if( matrizAB->nza == 0 )
 		{
-			matrizAB->xval = (double *) malloc( sizeof(double) );
-			matrizAB->ifil = (int *) malloc( sizeof(int) );
-			matrizAB->icol = (int *) malloc( sizeof(int) );
 			j = matrizAB->nza++;
 			*(matrizAB->xval+j) = 0;
 			*(matrizAB->ifil+j) = *(ifil+i);
 			*(matrizAB->icol+j) = *(icol+i);
-
 		}
 		else
 		{	
@@ -85,9 +81,9 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 			if ( !encontrado ) 
 			{
 				j = matrizAB->nza++;
-				matrizAB->xval = (double *) realloc(matrizAB->xval, j*sizeof(double) );
-				matrizAB->ifil = (int *) realloc(matrizAB->ifil, j*sizeof(int) );
-				matrizAB->icol = (int *) realloc(matrizAB->icol, j*sizeof(int) );
+				matrizAB->xval = (double *) realloc(matrizAB->xval, (j+1)*sizeof(double) );
+				matrizAB->ifil = (int *) realloc(matrizAB->ifil, (j+1)*sizeof(int) );
+				matrizAB->icol = (int *) realloc(matrizAB->icol, (j+1)*sizeof(int) );
 				*(matrizAB->xval+j) = 0;
 				*(matrizAB->ifil+j) = *(ifil+i);
 				*(matrizAB->icol+j) = *(icol+i);
@@ -102,8 +98,9 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 	matrizAB->nfil = matrizA.nfil;
 	matrizAB->ncol = matrizB.ncol;
 
+	/*
 	free( ifil );
 	free( icol );
-	free( xval );
+	free( xval ); */
 
 }

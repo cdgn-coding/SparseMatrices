@@ -32,6 +32,7 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 {
 	FILE *ptr;
 	char c=' ';
+	unsigned byte;
 	unsigned n=0,tamVec,tamb;
 	
 	//Apertura del archivo
@@ -63,6 +64,7 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 		fscanf(ptr,"%c",&c);
 	}
 	tamb = n;
+
 	//Quitamos la ultima casilla de b, que fue creada pero no se le asigno ningun valor
 	if((*b = (double *)realloc(*b,sizeof(double)*n)) == NULL){
 		printf("\n\n No se pudo reservar mas memoria para el vector. Terminando programa.\n\n");
@@ -72,12 +74,12 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 		
 	//Lectura hasta que no haya más líneas de los elementos de ifil, icol y xval
 	//Dimensionamos ifil, icol y xval para un manejo mas sencillo
-	if((matriz->icol = (unsigned *)malloc(sizeof(unsigned))) == NULL){
+	if((matriz->icol = (int *)malloc(sizeof(unsigned))) == NULL){
 		printf("\n\n No se pudo reservar la memoria para el vector. Terminando programa.\n\n");
 		system("pause");
 		exit(1);
 	}
-	if((matriz->ifil = (unsigned *)malloc(sizeof(unsigned))) == NULL){
+	if((matriz->ifil = (int *)malloc(sizeof(unsigned))) == NULL){
 		printf("\n\n No se pudo reservar la memoria para el vector. Terminando programa.\n\n");
 		system("pause");
 		exit(1);
@@ -92,15 +94,16 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 	n=0;
 	while(1)
 	{
-		fscanf(ptr,"%u %u %lf",matriz->ifil+n,matriz->icol+n,matriz->xval+n);
+		byte = fscanf(ptr,"%d %d %lf",matriz->ifil+n,matriz->icol+n,matriz->xval+n);
 		n++;
+		
 		//Redimensionamos los 3 vectores para añadir una casilla mas
-		if((matriz->icol = (unsigned *)realloc(matriz->icol,sizeof(unsigned)*(n+1))) == NULL){
+		if((matriz->icol = (int *)realloc(matriz->icol,sizeof(int)*(n+1))) == NULL){
 			printf("\n\n No se pudo reservar mas memoria para el vector. Terminando programa.\n\n");
 			system("pause");
 			exit(1);
 		}
-		if((matriz->ifil = (unsigned *)realloc(matriz->ifil,sizeof(unsigned)*(n+1))) == NULL){
+		if((matriz->ifil = (int *)realloc(matriz->ifil,sizeof(int)*(n+1))) == NULL){
 			printf("\n\n No se pudo reservar mas memoria para el vector. Terminando programa.\n\n");
 			system("pause");
 			exit(1);
@@ -111,19 +114,19 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 			exit(1);
 		}
 		//Rompemos el ciclo cuando llegamos al fin del archivo
-		if(fscanf(ptr,"%c",&c) == EOF) break;
+		if(fscanf(ptr,"%c",&c) == EOF || byte == EOF) break;
 	}
-	
+
 	//Guardamos el tamaño de los vectores para ser usado luego
 	tamVec = n;
 	//Quitamos las ultimas casillas de los 3 vectores, ya que estan sobrando
-	if((matriz->icol = (unsigned *)realloc(matriz->icol,sizeof(unsigned)*n)) == NULL)
+	if((matriz->icol = (int *)realloc(matriz->icol,sizeof(int)*n)) == NULL)
 	{
 		printf("\n\n No se pudo reservar mas memoria para el vector. Terminando programa.\n\n");
 		system("pause");
 		exit(1);
 	}
-	if((matriz->ifil = (unsigned *)realloc(matriz->ifil,sizeof(unsigned)*n)) == NULL)
+	if((matriz->ifil = (int *)realloc(matriz->ifil,sizeof(int)*n)) == NULL)
 	{
 		printf("\n\n No se pudo reservar mas memoria para el vector. Terminando programa.\n\n");
 		system("pause");
@@ -143,14 +146,16 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 	//Buscamos el valor maximo en los vectores ifil e icol, que seran la ultima fila y columna de la matriz
 	for(n=0;n<tamVec;n++)
 	{
-		if (matriz->nfil < *(matriz->ifil+n)) matriz->nfil = *(matriz->ifil+n);
-		if (matriz->ncol < *(matriz->icol+n)) matriz->ncol = *(matriz->icol+n);
+		if (matriz->nfil < *(matriz->ifil+n)) matriz->nfil = (*(matriz->ifil+n));
+		if (matriz->ncol < *(matriz->icol+n)) matriz->ncol = (*(matriz->icol+n));
 	}
+
+
 
 	//Finalmente asignamos la cantidad de elementos no nulos (Mismos elementos del vector xval)
 	//Asi que coincide con el tamaño del vector xval que definimos como tamVec
 	matriz->nza = tamVec;
-		
+
 	//Validación de datos
 		//Para resolver el sistema se debe multiplicar la transpuesta de A que denotaremos (At) por el vector b
 		//Si A es de orden nxm, At sera de orden mxn, ergo la dimension de b para poder multiplicar At x b ha de ser
