@@ -20,7 +20,7 @@
 #include <stdlib.h>
 #include "tipos.h"
 
-matrizSparse matrizTranspuesta(const matrizSparse matriz)
+matrizSparse matrizTraspuesta(const matrizSparse matriz)
 {
 	matrizSparse matrizT;
 	

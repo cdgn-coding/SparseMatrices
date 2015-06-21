@@ -1,6 +1,9 @@
 #ifndef MATRIZ_SPARSE
 #define MATRIZ_SPARSE
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #define CASTDBL (double *)
 #define TAMDBL sizeof(double)
 #define MAXLEN 100

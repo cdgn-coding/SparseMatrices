@@ -27,6 +27,8 @@ void matrizPorMatriz( const matrizSparse matrizA, const matrizSparse matrizB, ma
 
 
 	k=0;
+	xval = NULL;
+	ifil = icol = NULL;
 	for( i = 0; i < matrizA.nza; i++ )
 	{
 
