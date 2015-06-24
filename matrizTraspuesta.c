@@ -1,3 +1,6 @@
+// Carlos David G. Nexans 13-10591
+// Rafael Andrés Tellez 12-11397
+
 /*
 	Funcion matrizTraspuesta : encargada de trasponer una matrizSparse
 
@@ -27,14 +30,17 @@ matrizSparse matrizTraspuesta(const matrizSparse matriz)
 	//Transponer una matriz es simplemente mover los A(i,j) a la posicion A(j,i) asi que
 	//Sencillamente cambiamos ifil con icol, nfil con ncol y ya.
 	
-	matrizT.icol = matriz.ifil;
-	matrizT.ifil = matriz.icol;
+	matrizT.icol = (int *) mirealloc(matriz.ifil, matriz.nza*sizeof(int) );
+	matrizT.ifil = (int *) mirealloc(matriz.icol, matriz.nza*sizeof(int) );
 	matrizT.ncol = matriz.nfil;
 	matrizT.nfil = matriz.ncol;
 	
 	//Luego solo completamos los otros valores que no cambian
 	matrizT.nza = matriz.nza;
-	matrizT.xval = matriz.xval;
+	matrizT.xval = (double *) mirealloc(matriz.xval, matriz.nza*sizeof(double) );
+
+
+	//Usamos realloc para que los vectores no tengan la misma dirección de memoria
 	
 	//Finalmente devolvemos Transpuesta y listo.
 	return matrizT;

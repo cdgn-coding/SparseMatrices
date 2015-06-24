@@ -8,7 +8,8 @@
 
 double *gaussSeidel(matrizSparse matriz, double *b)
 {
-	unsigned i, j, k, tam = matriz.nfil, nza = matriz.nza;
+	//Aqui faltaba inicializar k
+	unsigned i, j, k=0, tam = matriz.nfil, nza = matriz.nza;
 	double *x, *y, *diag, *res, suma, maxi;
 	
 	x = CASTDBL mimalloc(tam*TAMDBL);

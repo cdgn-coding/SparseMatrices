@@ -1,3 +1,6 @@
+// Carlos David G. Nexans 13-10591
+// Rafael Andrés Tellez 12-11397
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "tipos.h"
@@ -32,7 +35,6 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 {
 	FILE *ptr;
 	char c=' ';
-	unsigned byte;
 	unsigned n=0,tamVec,tamb;
 	
 	//Apertura del archivo
@@ -52,7 +54,7 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 	}
 		
 		//Empezar a leer e ir abriendo espacio en la memoria para b, mientras no haya fin de linea
-	while(c != '\n' && c != '\r')
+	do
 	{
 		fscanf(ptr,"%lf",*b+n);
 		n++;
@@ -62,7 +64,7 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 			exit(1);
 		}
 		fscanf(ptr,"%c",&c);
-	}
+	} while ( c != '\n' && c != '\r' );
 	tamb = n;
 
 	//Quitamos la ultima casilla de b, que fue creada pero no se le asigno ningun valor
@@ -92,9 +94,8 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 		
 	//Hacemos el ciclo que leera y almacenara los elementos de las lineas en los vectores correspondientes
 	n=0;
-	while(1)
+	while( fscanf(ptr,"%d %d %lf",matriz->ifil+n,matriz->icol+n,matriz->xval+n) != EOF )
 	{
-		byte = fscanf(ptr,"%d %d %lf",matriz->ifil+n,matriz->icol+n,matriz->xval+n);
 		n++;
 		
 		//Redimensionamos los 3 vectores para añadir una casilla mas
@@ -113,9 +114,8 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 			system("pause");
 			exit(1);
 		}
-		//Rompemos el ciclo cuando llegamos al fin del archivo
-		if(fscanf(ptr,"%c",&c) == EOF || byte == EOF) break;
 	}
+
 
 	//Guardamos el tamaño de los vectores para ser usado luego
 	tamVec = n;
@@ -161,8 +161,9 @@ int leeSistema( char *nomarch, matrizSparse *matriz, double **b)
 		//Si A es de orden nxm, At sera de orden mxn, ergo la dimension de b para poder multiplicar At x b ha de ser
 		//n, asi:   At(mxn) x b(nx1) = (At x A)x X. Asi que revisamos si b tiene una longitud igual al numero de 
 		//filas de A.
-	
+
+
 	if(tamb == matriz->nfil) return(0);  //Las dimensiones SI cooncuerdan
-	if(tamb != matriz->nfil) return(-1); //Las dimensiones NO cooncuerdan
+	return(-1); //Las dimensiones NO cooncuerdan
 	//Lo escribo asi por simplicidad de lectura, como solo hay dos casos no se escapa ninguna posibilidad.
 }

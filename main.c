@@ -1,3 +1,6 @@
+// Carlos David G. Nexans 13-10591
+// Rafael Andrés Tellez 12-11397
+
 /*
 	Programa principal : encargado de establecer conexión con el usuario
 
@@ -40,15 +43,25 @@ int main()
 	scanf("%s", nombre);
 
 	correcto = leeSistema(nombre, &matriz, &b);
+
 	if ( !(correcto + 1) )
 	{
 		printf("El sistema no es consistente\n");
 		exit(EXIT_FAILURE);
 	}
+
 	traspuesta = matrizTraspuesta(matriz);
+	//Calculamos A^t
+
+
 	matrizPorMatriz( traspuesta, matriz, &matriz_sistema);
+	//Calculaos A^t * A
+
 	b_sistema = matrizPorVector(&traspuesta, b);
+	//Calculamos A^t * b
+
 	resultado = gaussSeidel(matriz_sistema, b_sistema);
+	//Resolvemos el sistema
 
 	/*
 		Deducimos lo siguiente del método que presenta wikipedia para este problema
@@ -58,7 +71,7 @@ int main()
 	fprintf(arch, "Cantidad de ecuaciones: %d\n", matriz.ncol);
 	fprintf(arch, "Solucion:\n");
 
-	printf("Dimensiones de la matriz: %dx%d\n", matriz.nfil, matriz.ncol);
+
 	for (i=0; i<matriz_sistema.nfil; i++)
 	{
 		fprintf(arch, "%lf\n", *(resultado+i) );

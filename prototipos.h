@@ -1,3 +1,6 @@
+// Carlos David G. Nexans 13-10591
+// Rafael Andrés Tellez 12-11397
+
 #ifndef PROTOTIPOS_H
 #define PROTOTIPOS_H
 

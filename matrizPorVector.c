@@ -1,3 +1,5 @@
+// Carlos David G. Nexans 13-10591
+// Rafael Andrés Tellez 12-11397
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -7,13 +9,16 @@ double *matrizPorVector(const matrizSparse *A, double *b)
 {
 	unsigned k; // unsigned i;
 	double *resultado;
-	resultado = (double *) mimalloc ( A->nfil*sizeof(double) );
 
+	resultado = (double *) mimalloc ( A->nfil*sizeof(double) );
 	
+
+
 	//Inicializamos los valores del vector resultado
 	for(k=0; k<A->nfil; k++)
 		*(resultado + k) = 0.0f;
 	
+
 
 	// De esta manera el algoritmo funciona pero tiene nfil*nza iteraciones
 	// Pues se recorren todas las filas, luego todos los valores no nulos
@@ -37,7 +42,10 @@ double *matrizPorVector(const matrizSparse *A, double *b)
 	// Como resultado obtenemos un for más compacto, y además
 	// un algoritmo mucho más rapido para matrices muy grandes
 	for(k=0; k < A->nza; k++)
-			*(resultado+(*(A->ifil+k))-1) += (*(b - 1 + (*(A->icol+k))))*(*(A->xval+k));
+	{
+
+		*(resultado+(*(A->ifil+k))-1) += (*(b - 1 + (*(A->icol+k))))*(*(A->xval+k));
+	}
 	
 	
 	// Retornamos la direccion de memoria del comienzo del arreglo
