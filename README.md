@@ -16,7 +16,7 @@ Applies the quicksort algorithm to the vector and gives the indices modified.
 * double *vec: the sorted vector (by reference)
 * int *indices: the indices of the sorted vector (by reference)
 
-### double *gaussSeidel
+### double \*gaussSeidel
 
 Solves an Ax = b system where A is a sparse matrix and b a is a vector.
 
@@ -41,25 +41,25 @@ It is designed in such way that if A is the sparse matrix, for each i in [0, nza
 
 ### void matrizPorMatriz
 
-Computes A*B, where A and B are sparse matrices
+Computes A\*B, where A and B are sparse matrices
 
 **Input**
 * const matrizSparse matrizA
 * const matrizSparse matrizB
 
 ** Output**
-* matrizSparse *matrizAB: result of the computation matrizA*matrizB (passed by reference)
+* matrizSparse \*matrizAB: result of the computation matrizA*matrizB (passed by reference)
 
-### double *matrizPorVector
+### double \*matrizPorVector
 
 Computes A*b where A is a sparse matrix and b is a vector.
 
 **Input**
-* const matrizSparse *A
-* double *b
+* const matrizSparse \*A
+* double \*b
 
 **Output**
-* double *resultado: the result vector of the computation
+* double \*resultado: the result vector of the computation
 
 ### matrizSparse matrizTraspuesta
 
