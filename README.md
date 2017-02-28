@@ -47,7 +47,7 @@ Computes A\*B, where A and B are sparse matrices
 * const matrizSparse matrizA
 * const matrizSparse matrizB
 
-** Output**
+**Output**
 * matrizSparse \*matrizAB: result of the computation matrizA*matrizB (passed by reference)
 
 ### double \*matrizPorVector
